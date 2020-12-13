@@ -6,7 +6,8 @@ const expressLayout=require('express-ejs-layouts');
 
 const PORT=process.env.PORT||3000
 
-
+//Assets
+app.use(express.static('public'));
 
 //Routes
 app.get("/", (req,res)=>{
