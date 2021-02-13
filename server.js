@@ -75,6 +75,9 @@ app.set('view engine','ejs');
 
 //Routes
 require('./routes/web')(app)
+app.use((req,res)=>{
+    res.status(404).send('<h1>Error 404! Page not found</h1>')
+})
 
 
 const server=app.listen(PORT,()=>{
