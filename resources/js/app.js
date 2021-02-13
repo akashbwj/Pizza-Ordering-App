@@ -5,6 +5,22 @@ import moment from 'moment';
 
 let addToCart=document.querySelectorAll('.add-to-cart');
 let cartCounter=document.querySelector('#cartCounter');
+let adminAreaPath=window.location.pathname
+
+
+// function scrollToMenu() {
+//     let allPizzas=document.getElementById('#allpizzas');
+//     allPizzas.scrollIntoView();
+// }
+if(adminAreaPath=='/'){
+    let orderNowBtn=document.getElementById('orderNowBtn');
+
+    orderNowBtn.addEventListener('click',()=>{
+        let allPizzas=document.getElementById('allpizzas');
+        allPizzas.scrollIntoView();
+    })
+}
+
 
 function updateCart(pizza){
     axios.post('/update-cart',pizza).then(res=>{
@@ -76,16 +92,15 @@ updateStatus(order);
 
 //Socket
 let socket=io()
-initAdmin(socket);
 
 //Join
 if(order){
     socket.emit('join',`order_${order._id}`)
 }
 
-let adminAreaPath=window.location.pathname
 // console.log(adminAreaPath)// /admin/orders
 if(adminAreaPath.includes('admin')){
+    initAdmin(socket);
     socket.emit('join','adminRoom')
 }
 

@@ -26939,6 +26939,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var addToCart = document.querySelectorAll('.add-to-cart');
 var cartCounter = document.querySelector('#cartCounter');
+var adminAreaPath = window.location.pathname; // function scrollToMenu() {
+//     let allPizzas=document.getElementById('#allpizzas');
+//     allPizzas.scrollIntoView();
+// }
+
+if (adminAreaPath == '/') {
+  var orderNowBtn = document.getElementById('orderNowBtn');
+  orderNowBtn.addEventListener('click', function () {
+    var allPizzas = document.getElementById('allpizzas');
+    allPizzas.scrollIntoView();
+  });
+}
 
 function updateCart(pizza) {
   axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/update-cart', pizza).then(function (res) {
@@ -27011,16 +27023,15 @@ function updateStatus(order) {
 
 updateStatus(order); //Socket
 
-var socket = io();
-Object(_admin__WEBPACK_IMPORTED_MODULE_2__["initAdmin"])(socket); //Join
+var socket = io(); //Join
 
 if (order) {
   socket.emit('join', "order_".concat(order._id));
-}
+} // console.log(adminAreaPath)// /admin/orders
 
-var adminAreaPath = window.location.pathname; // console.log(adminAreaPath)// /admin/orders
 
 if (adminAreaPath.includes('admin')) {
+  Object(_admin__WEBPACK_IMPORTED_MODULE_2__["initAdmin"])(socket);
   socket.emit('join', 'adminRoom');
 }
 
